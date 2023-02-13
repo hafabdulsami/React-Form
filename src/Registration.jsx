@@ -4,7 +4,25 @@ import { GlobalStyle } from "./Styles/globalStyles";
 import { useFormik } from "formik";
 import { signUpSchema } from "./schemas";
 
-{
+
+const Registration = () => {
+  const initiallValues = {
+    name:"",
+    password:"",
+    confirm_password:"",
+    email:"",
+  };
+  
+  const{values,errors, handleBlur ,touched, handleChange , handleSubmit}  = useFormik({
+    initialValues:initiallValues,
+    validationSchema:signUpSchema,
+    onSubmit: (values,action) => {
+      //console.log("onsubmit value "+values.confirm_password);
+      values;
+      action.resetForm()
+    },
+  });
+
   return (
     <>
       <GlobalStyle />
@@ -15,7 +33,7 @@ import { signUpSchema } from "./schemas";
               <div className="modal-left">
                 <h1 className="modal-title">Welcome!</h1>
                 <p className="modal-desc">
-                  To the thapa technical website for programmers.
+                  To the SHS Testing website for programmers.
                 </p>
                 <form onSubmit={handleSubmit}>
                   <div className="input-block">
@@ -28,13 +46,11 @@ import { signUpSchema } from "./schemas";
                       name="name"
                       id="name"
                       placeholder="Name"
-                      value={values.name}
+                     value={values.name}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
-                    {errors.name && touched.name ? (
-                      <p className="form-error">{errors.name}</p>
-                    ) : null}
+                    {errors.name && touched.name ?(<p className="form-error">{errors.name}</p>) :null}
                   </div>
                   <div className="input-block">
                     <label htmlFor="email" className="input-label">
@@ -48,11 +64,9 @@ import { signUpSchema } from "./schemas";
                       placeholder="Email"
                       value={values.email}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur = {handleBlur}
                     />
-                    {errors.email && touched.email ? (
-                      <p className="form-error">{errors.email}</p>
-                    ) : null}
+                    {errors.email && touched.email ?(<p className="form-error">{errors.email}</p>) :null}
                   </div>
                   <div className="input-block">
                     <label htmlFor="password" className="input-label">
@@ -64,10 +78,11 @@ import { signUpSchema } from "./schemas";
                       name="password"
                       id="password"
                       placeholder="Password"
+                      value={values.password}
+                      onChange={handleChange}
+                      onBlur = {handleBlur}
                     />
-                    {errors.password && touched.password ? (
-                      <p className="form-error">{errors.password}</p>
-                    ) : null}
+                    {errors.password && touched.password ?(<p className="form-error">{errors.password}</p>) :null}
                   </div>
                   <div className="input-block">
                     <label htmlFor="confirm_password" className="input-label">
@@ -79,9 +94,11 @@ import { signUpSchema } from "./schemas";
                       name="confirm_password"
                       id="confirm_password"
                       placeholder="Confirm Password"
-                      
+                      value={values.confirm_password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                    
+                    {errors.confirm_password && touched.confirm_password ?(<p className="form-error">{errors.confirm_password}</p>) :null}
                   </div>
                   <div className="modal-buttons">
                     <a href="#" className="">
